@@ -20,3 +20,5 @@ def normalize_dataset(dataset):
                 row[i] = 0.0
             else:
                 row[i] = (row[i] - min_val) / (max_val - min_val)
+
+    return dataset
