@@ -2,7 +2,9 @@ def encode_and_convert_data(dataset):
     processed_data = []
 
     for row in dataset:
-        new_row = row.copy()
+
+        # 1. Son sütunu atıyoruz
+        new_row = row[:-1]
 
         # 1. sex -> Male:1, Female:0
         if new_row[0] == 'Male':
@@ -12,11 +14,11 @@ def encode_and_convert_data(dataset):
         else:
             new_row[0] = 0.0
 
-        # 2. DRK_YN (son sütun) -> Y:1, N:0
-        if new_row[-1] == 'Y':
-            new_row[-1] = 1.0
-        elif new_row[-1] == 'N':
+        # önceden içip bırakanlar da 1
+        if new_row[-1] == "1.0":
             new_row[-1] = 0.0
+        elif new_row[-1] == "2.0" or new_row[-1] == "3.0":
+            new_row[-1] = 1.0
         else:
             new_row[-1] = 0.0
 

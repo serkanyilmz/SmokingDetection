@@ -5,9 +5,12 @@ from preprocess import encode_and_convert_data
 dataset = load_csv('./smoking_driking_dataset_Ver01.csv')
 
 dataset = encode_and_convert_data(dataset)
+print(dataset[0])
 dataset = normalize_dataset(dataset)
+print(dataset[0])
 
-print(dataset[2])
+print(dataset[0])
+print(dataset[1])
 print(len(dataset))
 #data=datasetioku
 #
