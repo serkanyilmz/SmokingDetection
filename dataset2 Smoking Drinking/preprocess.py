@@ -1,8 +1,8 @@
 def encode_and_convert_data(dataset):
     processed_data = []
 
-    for row in dataset:
-
+    for row in dataset[0]:
+        print(row)
         # 1. Son sütunu atıyoruz
         new_row = row[:-1]
 
@@ -25,6 +25,7 @@ def encode_and_convert_data(dataset):
         # 3. Tüm alanları float'a çevir
         clean_row = []
         for val in new_row:
+            print(val)
             try:
                 clean_row.append(float(val))
             except ValueError:

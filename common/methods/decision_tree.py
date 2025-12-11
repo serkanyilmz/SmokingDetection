@@ -1,7 +1,7 @@
 from graphviz import Digraph
 import random
-from common.evaluation_metrics import calculate_metrics
-from common.split_dataset import train_test_split
+from common.functions.evaluation_metrics import calculate_metrics
+from common.functions.split_dataset import train_test_split
 
 def gini_index(groups, classes):
     n_instances = sum([len(group) for group in groups])

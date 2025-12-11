@@ -3,7 +3,7 @@ def encode_and_convert_data(dataset):
     ID'yi siler, metinleri sayıya çevirir (Encoding).
     """
     processed_data = []
-    for row in dataset:
+    for row in dataset[0]:
         # 1. ID Sütununu (ilk sütun) atıyoruz
         new_row = row[1:]
 

@@ -1,6 +1,6 @@
 import math
-from common.evaluation_metrics import calculate_metrics
-from common.split_dataset import train_val_test_split
+from common.functions.evaluation_metrics import calculate_metrics
+from common.functions.split_dataset import train_val_test_split
 
 def calculate_mean(numbers):
     return sum(numbers) / float(len(numbers))

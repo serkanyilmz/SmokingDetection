@@ -1,6 +1,6 @@
 import math
-from common.evaluation_metrics import calculate_metrics
-from common.split_dataset import train_test_split
+from common.functions.evaluation_metrics import calculate_metrics
+from common.functions.split_dataset import train_test_split
 
 def euclidean(a, b):
     return math.sqrt(sum((a[i] - b[i])**2 for i in range(len(a))))

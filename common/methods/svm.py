@@ -1,6 +1,6 @@
 import random
-from common.evaluation_metrics import calculate_metrics
-from common.split_dataset import train_val_test_split
+from common.functions.evaluation_metrics import calculate_metrics
+from common.functions.split_dataset import train_val_test_split
 
 def dot_product(w, x):
     return sum(wj * xj for wj, xj in zip(w, x))
