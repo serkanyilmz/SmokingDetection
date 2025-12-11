@@ -103,24 +103,24 @@ def predict_prob(node, row):
 # -------------------------
 # 12. KARAR AĞACI GÖRSELLEŞTİRME
 # -------------------------
-#def add_nodes_edges(tree, dot=None, parent=None, edge_label=""):
-#    if dot is None:
-#        dot = Digraph()
-#    if isinstance(tree, dict):
-#        label = f"X{tree['index']} < {tree['value']:.2f}"
-#        dot.node(str(id(tree)), label)
-#        if parent:
-#            dot.edge(str(id(parent)), str(id(tree)), label=edge_label)
-#        add_nodes_edges(tree["left"], dot, tree, "True")
-#        add_nodes_edges(tree["right"], dot, tree, "False")
-#    else:
-#        label = f"Leaf: {tree}"
-#        leaf_id = str(id(tree) + random.randint(0,1000))
-#        dot.node(leaf_id, label, shape="box")
-#        if parent:
-#            dot.edge(str(id(parent)), leaf_id, label=edge_label)
-#    return dot
-#
+def add_nodes_edges(tree, dot=None, parent=None, edge_label=""):
+    if dot is None:
+        dot = Digraph()
+    if isinstance(tree, dict):
+        label = f"X{tree['index']} < {tree['value']:.2f}"
+        dot.node(str(id(tree)), label)
+        if parent:
+            dot.edge(str(id(parent)), str(id(tree)), label=edge_label)
+        add_nodes_edges(tree["left"], dot, tree, "True")
+        add_nodes_edges(tree["right"], dot, tree, "False")
+    else:
+        label = f"Leaf: {tree}"
+        leaf_id = str(id(tree) + random.randint(0,1000))
+        dot.node(leaf_id, label, shape="box")
+        if parent:
+            dot.edge(str(id(parent)), leaf_id, label=edge_label)
+    return dot
+
 def decision_tree(dataset):
     x = [row[:-1] for row in dataset]
     y = [row[-1] for row in dataset]
@@ -141,9 +141,9 @@ def decision_tree(dataset):
 
 
     # AĞACI ÇİZ
-#    dot = add_nodes_edges(tree)
-#    dot.render("decision_tree", format="png", cleanup=True)
-#    print("Decision tree görseli 'decision_tree.png' olarak kaydedildi.")
-#
-#    print("\n--- DECISION TREE METRICS ---")
+    dot = add_nodes_edges(tree)
+    dot.render("decision_tree", format="png", cleanup=True)
+    print("Decision tree görseli 'decision_tree.png' olarak kaydedildi.")
+
+    print("\n--- DECISION TREE METRICS ---")
     calculate_metrics(y_true, predictions)
