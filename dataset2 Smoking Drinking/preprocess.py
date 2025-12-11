@@ -1,7 +1,7 @@
 def encode_and_convert_data(dataset):
     processed_data = []
 
-    for row in dataset[0]:
+    for row in dataset:
         print(row)
         # 1. Son sütunu atıyoruz
         new_row = row[:-1]
