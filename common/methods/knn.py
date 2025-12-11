@@ -30,65 +30,11 @@ def knn(dataset, k=5):
     train = [{"features": x_train[i], "label": y_train[i]} for i in range(len(x_train))]
     test = [{"features": x_test[i],  "label": y_test[i]} for i in range(len(x_test))]
     predictions = []
-    y_prob = []
 
     for row in test:
         predictions.append(knn_predict(train, row, k))
-
-        # ROC için Probability hesabı
-        distances = []
-        for tr in train:
-            dist = euclidean(tr["features"], row["features"])
-            distances.append((dist, tr["label"]))
-        distances.sort(key=lambda x: x[0])
-        neighbors = distances[:k]
-
-        prob = sum(label for _, label in neighbors) / k
-        y_prob.append(prob)
 
     y_true = [row["label"] for row in test]
 
     print("\n--- KNN METRICS ---")
     calculate_metrics(y_true, predictions)
-    #calculate_metrics(y_true, predictions, y_prob)
-
-
-
-"""
-# ===========================
-# 🔥 ROC AUC GRAFİĞİ (EKLENEN KISIM)
-# ===========================
-
-# ROC için threshold'lara göre değer tekrar hesaplanır
-thresholds = sorted(set(y_prob), reverse=True)
-tpr_list = []
-fpr_list = []
-
-for thresh in thresholds:
-    y_pred = [1 if p >= thresh else 0 for p in y_prob]
-
-    tp = sum(1 for i in range(len(y_true)) if y_true[i] == 1 and y_pred[i] == 1)
-    fn = sum(1 for i in range(len(y_true)) if y_true[i] == 1 and y_pred[i] == 0)
-    fp = sum(1 for i in range(len(y_true)) if y_true[i] == 0 and y_pred[i] == 1)
-    tn = sum(1 for i in range(len(y_true)) if y_true[i] == 0 and y_pred[i] == 0)
-
-    tpr = tp / (tp + fn) if (tp + fn) != 0 else 0   # True Positive Rate
-    fpr = fp / (fp + tn) if (fp + tn) != 0 else 0   # False Positive Rate
-
-    tpr_list.append(tpr)
-    fpr_list.append(fpr)
-
-# -------------------------
-# GRAFİK ÇİZİMİ
-# -------------------------
-plt.figure(figsize=(6,5))
-plt.plot(fpr_list, tpr_list, marker='o', label=f'KNN ROC Curve (AUC={roc_auc(y_true,y_prob):.3f})')
-plt.plot([0,1], [0,1], 'r--', label="Rastgele Tahmin (Random Baseline)")
-
-plt.xlabel("False Positive Rate")
-plt.ylabel("True Positive Rate")
-plt.title("ROC Curve - KNN")
-plt.legend()
-plt.grid(True)
-plt.show()
-"""

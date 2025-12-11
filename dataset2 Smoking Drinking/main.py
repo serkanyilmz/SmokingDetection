@@ -5,21 +5,10 @@ from common.normalization import normalize_dataset
 from common.read_dataset import load_csv
 from preprocess import encode_and_convert_data
 
-dataset = load_csv('./smoking_driking_dataset_Ver01.csv')
-
+dataset, headers = load_csv('./smoking_driking_dataset_Ver01.csv')
 dataset = encode_and_convert_data(dataset)
 dataset = normalize_dataset(dataset)
 
 naive_bayes(dataset)
 knn(dataset)
-decision_tree(dataset)
-
-#data=datasetioku
-#
-#data = preprocess(data)
-#
-#acc pred = decision_tree(data)
-#show_result(acc, red)
-#
-#acc pred = knn(data)
-#show_result(acc, red)
+decision_tree(dataset, headers)

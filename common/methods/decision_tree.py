@@ -1,9 +1,9 @@
 from graphviz import Digraph
+import random
 from common.evaluation_metrics import calculate_metrics
 from common.split_dataset import train_test_split
 
 def gini_index(groups, classes):
-    # groups: [sol, sağ] list of lists of labels
     n_instances = sum([len(group) for group in groups])
     gini = 0.0
     for group in groups:
@@ -82,37 +82,23 @@ def predict(node, row):
         else:
             return node["right"]
 
-# -------------------------
-# 9. Tahmin olasılıkları (ROC-AUC)
-# -------------------------
-def predict_prob(node, row):
-    # leaf node: return 0 veya 1 olasılık
-    if row["features"][node["index"]] < node["value"]:
-        if isinstance(node["left"], dict):
-            return predict_prob(node["left"], row)
-        else:
-            # leaf node olasılık: sadece sınıf 0 veya 1
-            return 1.0 if node["left"] == 1 else 0.0
-    else:
-        if isinstance(node["right"], dict):
-            return predict_prob(node["right"], row)
-        else:
-            return 1.0 if node["right"] == 1 else 0.0
-
-
-# -------------------------
-# 12. KARAR AĞACI GÖRSELLEŞTİRME
-# -------------------------
-def add_nodes_edges(tree, dot=None, parent=None, edge_label=""):
+ 
+def add_nodes_edges(tree, feature_labels, dot=None, parent=None, edge_label=""):
     if dot is None:
         dot = Digraph()
+
     if isinstance(tree, dict):
-        label = f"X{tree['index']} < {tree['value']:.2f}"
+        feature_name = feature_labels.get(tree['index'], f"X{tree['index']}")
+        label = f"{feature_name} < {tree['value']:.2f}"
+
         dot.node(str(id(tree)), label)
+
         if parent:
             dot.edge(str(id(parent)), str(id(tree)), label=edge_label)
-        add_nodes_edges(tree["left"], dot, tree, "True")
-        add_nodes_edges(tree["right"], dot, tree, "False")
+
+        add_nodes_edges(tree["left"], feature_labels, dot, tree, "True")
+        add_nodes_edges(tree["right"], feature_labels, dot, tree, "False")
+
     else:
         label = f"Leaf: {tree}"
         leaf_id = str(id(tree) + random.randint(0,1000))
@@ -121,7 +107,20 @@ def add_nodes_edges(tree, dot=None, parent=None, edge_label=""):
             dot.edge(str(id(parent)), leaf_id, label=edge_label)
     return dot
 
-def decision_tree(dataset):
+def set_header_labels(headers):
+    if "ID" in headers: headers.remove("ID")
+    if "DRK_YN" in headers: headers.remove("DRK_YN")
+
+    feature_labels = {}
+    for i, header in enumerate(headers[:-1]):  
+        feature_labels[i] = header
+    return feature_labels
+
+
+def decision_tree(dataset, headers):
+
+    feature_labels = set_header_labels(headers.copy())
+
     x = [row[:-1] for row in dataset]
     y = [row[-1] for row in dataset]
 
@@ -134,16 +133,12 @@ def decision_tree(dataset):
     min_size = 5
     tree = build_tree(train, max_depth, min_size)
 
-    # Tahmin
     y_true = [row["label"] for row in test]
     predictions = [predict(tree, row) for row in test]
-    y_prob = [predict_prob(tree, row) for row in test]
 
-
-    # AĞACI ÇİZ
-    dot = add_nodes_edges(tree)
+    dot = add_nodes_edges(tree, feature_labels)
     dot.render("decision_tree", format="png", cleanup=True)
-    print("Decision tree görseli 'decision_tree.png' olarak kaydedildi.")
+    print("Decision tree görseli 'decision_tree.png' olarak kaydedildi.") 
 
     print("\n--- DECISION TREE METRICS ---")
     calculate_metrics(y_true, predictions)
