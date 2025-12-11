@@ -9,7 +9,7 @@ def load_csv(filename):
             for row in reader:
                 if row:
                     dataset.append(row)
-        return dataset
+        return dataset, headers
     except FileNotFoundError:
         print(f"Hata: '{filename}' bulunamadı.")
         return []
