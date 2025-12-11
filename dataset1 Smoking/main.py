@@ -12,6 +12,7 @@ print(len(dataset[1]))
 dataset = encode_and_convert_data(dataset)
 dataset = normalize_dataset(dataset)
 
+
 dataset = dataset[:200]
 
 knn(dataset)
