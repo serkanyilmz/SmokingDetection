@@ -1,3 +1,4 @@
+from common.methods.logistic_regression import logistic_regression
 from preprocess import encode_and_convert_data
 from common.normalization import normalize_dataset
 from common.methods.naive_bayes import naive_bayes
@@ -7,5 +8,5 @@ dataset = load_csv("smoking.csv")
 dataset = encode_and_convert_data(dataset)
 dataset = normalize_dataset(dataset)
 
-naive_bayes(dataset)
-
+#naive_bayes(dataset)
+logistic_regression(dataset)
