@@ -1,5 +1,6 @@
-from common.methods.knn import knn_predict
+from common.methods.knn import knn
 from common.methods.logistic_regression import logistic_regression
+from common.methods.svm import svm
 from preprocess import encode_and_convert_data
 from common.normalization import normalize_dataset
 from common.methods.naive_bayes import naive_bayes
@@ -15,7 +16,4 @@ dataset = normalize_dataset(dataset)
 
 dataset = dataset[:200]
 
-logistic_regression(dataset)
-naive_bayes(dataset)
-decision_tree(dataset)
-knn_predict(dataset)
+svm(dataset)
