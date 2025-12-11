@@ -43,8 +43,6 @@ def predict_one(row, w, b):
 
 
 def svm(dataset):
-    print("--- SVM (Pegasos Linear) Başlatılıyor ---")
-
     X = [row[:-1] for row in dataset]
     y = [row[-1] for row in dataset]
     X_train, X_val, X_test, y_train, y_val, y_test = train_val_test_split(
@@ -53,8 +51,6 @@ def svm(dataset):
 
     train_set_combined = [x + [label] for x, label in zip(X_train, y_train)]
 
-    # 4. Modeli Eğit
-    print("Model eğitiliyor...")
     best_w, best_b = train_linear_svm_model(
         train_set_combined,
         lr=0.01,
@@ -67,5 +63,5 @@ def svm(dataset):
         pred = predict_one(row, best_w, best_b)
         predictions.append(pred)
 
-    print("\n=== SVM SONUÇLARI ===")
+    print("\n--- SVM METRICS ---")
     calculate_metrics(y_test, predictions)

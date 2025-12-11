@@ -136,9 +136,9 @@ def decision_tree(dataset, headers):
     y_true = [row["label"] for row in test]
     predictions = [predict(tree, row) for row in test]
 
-    dot = add_nodes_edges(tree, feature_labels)
-    dot.render("decision_tree", format="png", cleanup=True)
-    print("Decision tree görseli 'decision_tree.png' olarak kaydedildi.") 
+    #dot = add_nodes_edges(tree, feature_labels)
+    #dot.render("decision_tree", format="png", cleanup=True)
+    #print("Decision tree görseli 'decision_tree.png' olarak kaydedildi.")
 
     print("\n--- DECISION TREE METRICS ---")
     calculate_metrics(y_true, predictions)
