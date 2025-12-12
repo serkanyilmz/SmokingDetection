@@ -7,11 +7,9 @@ from common.functions.normalization import normalize_dataset
 from common.functions.read_dataset import load_csv
 from preprocess import encode_and_convert_data
 
-dataset, headers = load_csv('./smoking_driking_dataset_Ver01.csv')
+dataset, headers = load_csv('smoking_drinking_100k.csv')
 dataset = encode_and_convert_data(dataset)
 dataset = normalize_dataset(dataset)
-
-#dataset = dataset[:500]
 
 knn(dataset)
 logistic_regression(dataset)

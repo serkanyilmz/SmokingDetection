@@ -8,12 +8,8 @@ from common.functions.normalization import normalize_dataset
 from common.functions.read_dataset import load_csv
 
 dataset, headers = load_csv("smoking.csv")
-print(len(dataset[1]))
 dataset = encode_and_convert_data(dataset)
 dataset = normalize_dataset(dataset)
-
-
-dataset = dataset[:200]
 
 knn(dataset)
 logistic_regression(dataset)
