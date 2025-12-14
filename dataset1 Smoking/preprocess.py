@@ -4,10 +4,10 @@ def encode_and_convert_data(dataset):
     """
     processed_data = []
     for row in dataset:
-        # 1. ID Sütununu (ilk sütun) atıyoruz
+        # 1. Drop the ID column (first column)
         new_row = row[1:]
 
-        # 2. Cinsiyet (Index 0) - M:1, F:0
+        # 2. Gender (Index 0) - M:1, F:0
         if new_row[0] == 'M':
             new_row[0] = 1.0
         elif new_row[0] == 'F':
@@ -25,7 +25,7 @@ def encode_and_convert_data(dataset):
         elif new_row[24] == 'N':
             new_row[24] = 0.0
 
-        # 5. Hepsini Float Yap
+        # 5. Convert all values to float
         clean_row = []
         for val in new_row:
             try:

@@ -1,5 +1,3 @@
-100k dataset2
-
 --- KNN METRICS ---
 Accuracy:                           78.07%
 Precision:                          0.7057

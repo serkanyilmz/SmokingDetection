@@ -78,7 +78,6 @@ def naive_bayes(dataset):
         if total_likelihood == 0:
             prob_score = 0.0
         else:
-            # P(1) = L(1) / (L(0) + L(1))
             prob_score = likelihood_1 / total_likelihood
         predictions.append(prob_score)
 

@@ -11,5 +11,5 @@ def load_csv(filename):
                     dataset.append(row)
         return dataset, headers
     except FileNotFoundError:
-        print(f"Hata: '{filename}' bulunamadı.")
+        print(f"Error: '{filename}' can't found.")
         return []

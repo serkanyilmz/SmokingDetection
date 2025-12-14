@@ -1,5 +1,4 @@
 from graphviz import Digraph
-import random
 from common.functions.evaluation_metrics import calculate_metrics
 from common.functions.split_dataset import train_test_split
 
